@@ -21,7 +21,6 @@ function Login (props) {
         })
         .then(r => r.json())
         .then(data => {
-            console.log(data)
             const { user, token } = data
 
             props.handleLogin(user)
