@@ -1,6 +1,7 @@
 import React from 'react';
 
-function CompletedExercises () {
+function CompletedExercises (props) {
+    const {completedExercises} = props
 
     return (
         <h1>CompletedExercises</h1>

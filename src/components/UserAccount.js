@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import CompletedExercises from './CompletedExercises';
 
 function UserAccount (props) {
-    let {currentUser, completedExercises} = props
+    let {currentUser, lessons, exercises, completedExercises} = props
     // const [completedExercises, setCompletedExercises] = useState([])
 
     // useEffect(() => {
@@ -21,13 +21,16 @@ function UserAccount (props) {
     //     })                    
     // }, [])
 
-    const renderCompletedExercises =
+    const renderCompletedExercises = 
         completedExercises.map((exercise, idx) => 
             <CompletedExercises 
             key={idx}
             completedExercises={completedExercises}
             />
-        )
+        )     
+
+
+
     
     return(
             <Container>
@@ -39,8 +42,7 @@ function UserAccount (props) {
                         <Card.Body>
                             <Card.Title>{currentUser.username}</Card.Title>
                             <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
+                                Exercises Completed: {completedExercises.length}
                             </Card.Text>
                         </Card.Body>
                         <Card.Body>

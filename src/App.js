@@ -7,6 +7,7 @@ import LessonsContainer from './components/LessonsContainer';
 import UserAccount from './components/UserAccount';
 import Lesson from './components/Lesson';
 import Exercises from './components/Exercises';
+import Home from './components/Home';
 
 function App() {
 
@@ -55,13 +56,14 @@ function App() {
   }, [])
 
 useEffect(() => {
-  fetch('http://localhost:3000/completed_exercises', {
+  fetch('http://localhost:3000/user_completed', {
       headers: {
       "Authorization": `Bearer ${localStorage.token}`
       }
   })
   .then(r => r.json())
   .then(data => {
+    console.log(data)
       setCompletedExercises(data)
   })                    
 }, [])
@@ -88,23 +90,23 @@ useEffect(() => {
               <SignUp handleLogin={handleLogin} />
             </Route>
             <Route exact path='/login'>
-              {currentUser === null ? <Login handleLogin={handleLogin} /> : <Redirect to='/profile'/>}
+              {currentUser === null ? <Login handleLogin={handleLogin} /> : <Redirect to='/'/>}
             </Route>
             <Route exact path='/profile'>
               {
                 currentUser !== null ? 
-                <UserAccount currentUser={currentUser} lessons={lessons} exercises={exercises}  completedExercises={completedExercises}/> 
+                <UserAccount currentUser={currentUser} lessons={lessons} exercises={exercises} completedExercises={completedExercises} /> 
                 : <h1>Not signed in</h1>
                 }
             </Route>
             <Route exact path='/lessons'>
-              <LessonsContainer lessons={lessons}/>
+              <LessonsContainer lessons={lessons} />
             </Route>
             <Route exact path="/">
-              <h1>Welcome To The Idioma Language Learning App</h1>
+              <Home/>
             </Route>
             <Route exact path='/introlesson'>
-              <Lesson  />
+              <Lesson />
             </Route>
             <Route exact path='/introexercises'>
               <Exercises exercises={exercises} completedExercises={completedExercises} />

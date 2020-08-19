@@ -34,7 +34,7 @@ function Lesson () {
                             and to say the girl you would say "la niña".
                             </Card.Text>
                             <Card style={{ width: '30rem' }}>
-                            <Card.Img variant="top" src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-charismatic-guy-cute-boy-q-version-boy-cute-little-boy-png-image_3785126.jpg" />
+                            <Card.Img variant="top" src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-charismatic-guy-cute-boy-q-version-boy-cute-little-boy-png-image_3785126.jpg" SameSite="None" />
                                 <Card.Body>
                                 <Card.Text>
                                     el niño - the boy

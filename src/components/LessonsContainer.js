@@ -3,7 +3,8 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import LessonCard from './LessonCard';
+import {NavLink} from 'react-router-dom';
+
 
 function LessonsContainer (props) {
     const {lessons} = props
@@ -26,11 +27,6 @@ function LessonsContainer (props) {
 
     const renderLessons = 
         lessons.map((lesson, idx) => 
-            // <LessonCard
-            // key={idx}
-            // title={lesson.title}
-            // description={lesson.description}
-            // />
             <div key={idx}>
             <br/>
             <Row>
@@ -42,8 +38,10 @@ function LessonsContainer (props) {
                         <Card.Text>
                         {lesson.description}
                         </Card.Text>
-                        <Card.Link href="/introlesson">Start Lesson</Card.Link>
-                        <Card.Link href="/introexercises">Start Exercises</Card.Link>
+
+                        <NavLink to="/introlesson" exact>Start Lesson</NavLink>{' '}
+                        <NavLink to="/introexercises" exact>Start Exercises</NavLink>
+
                     </Card.Body>
                     </Card>
                 </Col>
