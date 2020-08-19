@@ -11,6 +11,9 @@ import Exercises from './components/Exercises';
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
+  const [exercises, setExercises] = useState([]);
+  const [completedExercises, setCompletedExercises] = useState([]);
+  const [lessons, setLessons] = useState([])
 
   const handleLogin = (newUser) => {
     setCurrentUser(newUser)
@@ -22,7 +25,6 @@ function App() {
     setCurrentUser(null)
   }
 
-
   useEffect(() => {
     if(localStorage.token) {
       fetch(`http://localhost:3000/autologin`, {
@@ -32,16 +34,49 @@ function App() {
       })
         .then(r => r.json())
         .then(data => {
-
           if (!data.error) {
             handleLogin(data)
-          }
-          
-          })
+          }         
+        })
     }
 
   }, [])
 
+  useEffect(() => {
+    fetch('http://localhost:3000/exercises', {
+        headers: {
+        "Authorization": `Bearer ${localStorage.token}`
+        }
+    })
+    .then(r => r.json())
+    .then(exercisesArr => {
+        setExercises(exercisesArr)
+    })
+  }, [])
+
+useEffect(() => {
+  fetch('http://localhost:3000/completed_exercises', {
+      headers: {
+      "Authorization": `Bearer ${localStorage.token}`
+      }
+  })
+  .then(r => r.json())
+  .then(data => {
+      setCompletedExercises(data)
+  })                    
+}, [])
+
+useEffect(() => {
+  fetch('http://localhost:3000/lessons', {
+      headers: {
+      "Authorization": `Bearer ${localStorage.token}`
+      }
+  })
+  .then(r => r.json())
+  .then(lessonsArr => {
+      setLessons(lessonsArr)
+  })            
+}, [])
 
   return (
 
@@ -56,17 +91,23 @@ function App() {
               {currentUser === null ? <Login handleLogin={handleLogin} /> : <Redirect to='/profile'/>}
             </Route>
             <Route exact path='/profile'>
-              {currentUser !== null ? <UserAccount currentUser={currentUser} /> : <h1>Not signed in</h1>}
+              {
+                currentUser !== null ? 
+                <UserAccount currentUser={currentUser} lessons={lessons} exercises={exercises}  completedExercises={completedExercises}/> 
+                : <h1>Not signed in</h1>
+                }
             </Route>
-            <Route exact path='/lessons' component={LessonsContainer}/>
+            <Route exact path='/lessons'>
+              <LessonsContainer lessons={lessons}/>
+            </Route>
             <Route exact path="/">
               <h1>Welcome To The Idioma Language Learning App</h1>
             </Route>
             <Route exact path='/introlesson'>
-              <Lesson />
+              <Lesson  />
             </Route>
             <Route exact path='/introexercises'>
-              <Exercises/>
+              <Exercises exercises={exercises} completedExercises={completedExercises} />
             </Route>
           </Switch>        
       </div>

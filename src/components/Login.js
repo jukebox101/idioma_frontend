@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 function Login (props) {
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,11 +22,20 @@ function Login (props) {
         })
         .then(r => r.json())
         .then(data => {
-            const { user, token } = data
-
+            const { user, token } = data            
+            if(user && token){
             props.handleLogin(user)
-            localStorage.token = token
+            localStorage.token = token                
+            }
+            else {
+                console.log(data.error)
+                setErrorMessage(data.error)
+            }
+
         })
+        .catch((error) => {
+            console.error('Error:', error);
+          });
     }
     return(
         <Container>
@@ -35,6 +45,7 @@ function Login (props) {
                         <h1>Login</h1>
                         <Form.Group>
                             <Form.Label>Enter Username</Form.Label>
+                            
                             <Form.Control 
                             type="text" 
                             placeholder="Enter username" 
@@ -50,7 +61,7 @@ function Login (props) {
                             value={password} 
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
-                
+                         {<p>{errorMessage}</p>}
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>

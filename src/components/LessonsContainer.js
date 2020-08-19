@@ -3,37 +3,44 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import LessonCard from './LessonCard';
 
-function LessonsContainer () {
-const [lessons, setLessons] = useState([])
+function LessonsContainer (props) {
+    const {lessons} = props
+// const [lessons, setLessons] = useState([])
 
-    useEffect(() => {
+//     useEffect(() => {
     
-        fetch('http://localhost:3000/lessons', {
-            headers: {
-            "Authorization": `Bearer ${localStorage.token}`
-            }
-        })
-        .then(r => r.json())
-        .then(lessonsArr => {
-            setLessons(lessonsArr)
-        })            
+//         fetch('http://localhost:3000/lessons', {
+//             headers: {
+//             "Authorization": `Bearer ${localStorage.token}`
+//             }
+//         })
+//         .then(r => r.json())
+//         .then(lessonsArr => {
+//             setLessons(lessonsArr)
+//         })            
     
 
-    }, [])
-console.log(lessons)
-    return(
+//     }, [])
 
-        <Container>
+    const renderLessons = 
+        lessons.map((lesson, idx) => 
+            // <LessonCard
+            // key={idx}
+            // title={lesson.title}
+            // description={lesson.description}
+            // />
+            <div key={idx}>
             <br/>
             <Row>
-                <Col md={{ span: 6, offset: 3 }}>
-                <Card style={{ width: '40rem' }}>
-                    <Card.Body>
-                        <Card.Title>Introduction</Card.Title>
-
+            <Col md={{ span: 6, offset: 3 }}>
+            <Card style={{ width: '40rem' }}>
+                <Card.Body>
+                        <Card.Title>{lesson.title}</Card.Title>
+    
                         <Card.Text>
-                        Introductory topics like gender and basic verb conjugation.
+                        {lesson.description}
                         </Card.Text>
                         <Card.Link href="/introlesson">Start Lesson</Card.Link>
                         <Card.Link href="/introexercises">Start Exercises</Card.Link>
@@ -41,6 +48,12 @@ console.log(lessons)
                     </Card>
                 </Col>
             </Row>
+            </div>
+        )
+    return(
+
+        <Container>
+            {renderLessons}
         </Container>
 
     )
