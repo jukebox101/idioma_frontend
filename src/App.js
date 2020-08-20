@@ -18,12 +18,23 @@ function App() {
 
   const handleLogin = (newUser) => {
     setCurrentUser(newUser)
-    
   }
 
   const handleLogout = () => {
     localStorage.removeItem("token")
     setCurrentUser(null)
+  }
+
+  const handleLessons = (lessonsData) => {
+    setLessons(lessonsData)
+  }
+
+  const handleExercises = (exercisesData) => {
+    setExercises(exercisesData)
+  }
+
+  const handleCompletedExercises = (completedExercisesData) => {
+    setCompletedExercises(completedExercisesData)
   }
 
   useEffect(() => {
@@ -44,42 +55,20 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/exercises', {
+    
+    fetch('http://localhost:3000/lessons', {
         headers: {
         "Authorization": `Bearer ${localStorage.token}`
         }
     })
     .then(r => r.json())
-    .then(exercisesArr => {
-        setExercises(exercisesArr)
-    })
+    .then(lessonsArr => {
+        handleLessons(lessonsArr)
+    })            
+
+
   }, [])
-
-useEffect(() => {
-  fetch('http://localhost:3000/user_completed', {
-      headers: {
-      "Authorization": `Bearer ${localStorage.token}`
-      }
-  })
-  .then(r => r.json())
-  .then(data => {
-    console.log(data)
-      setCompletedExercises(data)
-  })                    
-}, [])
-
-useEffect(() => {
-  fetch('http://localhost:3000/lessons', {
-      headers: {
-      "Authorization": `Bearer ${localStorage.token}`
-      }
-  })
-  .then(r => r.json())
-  .then(lessonsArr => {
-      setLessons(lessonsArr)
-  })            
-}, [])
-
+console.log(lessons)
   return (
 
       <div>
@@ -95,12 +84,12 @@ useEffect(() => {
             <Route exact path='/profile'>
               {
                 currentUser !== null ? 
-                <UserAccount currentUser={currentUser} lessons={lessons} exercises={exercises} completedExercises={completedExercises} /> 
+                <UserAccount currentUser={currentUser} handleCompletedExercises={handleCompletedExercises} lessons={lessons} exercises={exercises} completedExercises={completedExercises} /> 
                 : <h1>Not signed in</h1>
                 }
             </Route>
             <Route exact path='/lessons'>
-              <LessonsContainer lessons={lessons} />
+              <LessonsContainer handleLessons={handleLessons} lessons={lessons} />
             </Route>
             <Route exact path="/">
               <Home/>
@@ -109,7 +98,7 @@ useEffect(() => {
               <Lesson />
             </Route>
             <Route exact path='/introexercises'>
-              <Exercises exercises={exercises} completedExercises={completedExercises} />
+              <Exercises exercises={exercises} handleExercises={handleExercises} handleCompletedExercises={handleCompletedExercises} completedExercises={completedExercises} />
             </Route>
           </Switch>        
       </div>

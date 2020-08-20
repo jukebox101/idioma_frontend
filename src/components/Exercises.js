@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from  'react';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import ExerciseCard from './ExerciseCard';
 import Button from 'react-bootstrap/Button';
 import {NavLink} from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 function Exercises (props) {
-    let {exercises, completedExercises} = props
+    let {handleCompletedExercises, handleExercises, exercises, completedExercises} = props
     // const [exercises, setExercises] = useState([])
     const [counter, setCounter] = useState(0)
     const [buttonName, setButtonName] = useState('Next')
@@ -15,24 +17,24 @@ function Exercises (props) {
     const [correctAns, setCorrectAns] = useState("")
     let [variant, setVariant] = useState("primary")
     
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/exercises', {
-    //         headers: {
-    //         "Authorization": `Bearer ${localStorage.token}`
-    //         }
-    //     })
-    //     .then(r => r.json())
-    //     .then(exercisesArr => {
-    //         setExercises(exercisesArr)
-    //     })
-    // }, [])
+    useEffect(() => {
+        fetch('http://localhost:3000/exercises', {
+            headers: {
+            "Authorization": `Bearer ${localStorage.token}`
+            }
+        })
+        .then(r => r.json())
+        .then(exercisesArr => {
+            handleExercises(exercisesArr)
+        })
+    }, [])
 
 console.log(completedExercises)
     if (correctAnswersArr.length === exercises.length) {
 
         exercises.map((exercise) => {
 
-            const data = {exercise_id: exercise.id}
+            const data = {exercise_id: exercise.id, lesson_id: exercise.lesson_id}
             fetch("http://localhost:3000/completed_exercises", {
                 method: "POST",
                 headers: {
@@ -73,6 +75,7 @@ console.log(completedExercises)
             correct={question.correct}
             category={question.category}
             handleCorrect={handleCorrect}
+            handleCompletedExercises={handleCompletedExercises}
             />
         )
 
@@ -97,6 +100,13 @@ console.log(completedExercises)
                     </Alert>
             }    
             {<br/>}
+
+            {/* Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop */}
+            <Row>
+                <Col xs={6} md={4}>
+
+                </Col>
+                <Col xs={6} md={4}>
             {renderQuestions[counter]}
             {
             <Button onClick={() => {
@@ -106,6 +116,13 @@ console.log(completedExercises)
                 }}>{buttonName === "Complete" ? <NavLink to="/lessons" exact>Complete</NavLink> : buttonName}
                 </Button>                
             }
+
+                </Col>
+                <Col xs={6} md={4}>
+
+                </Col>
+            </Row>
+
 
             
         </Container>

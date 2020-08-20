@@ -7,23 +7,24 @@ import {NavLink} from 'react-router-dom';
 
 
 function LessonsContainer (props) {
-    const {lessons} = props
+    const {handleLessons, lessons} = props
 // const [lessons, setLessons] = useState([])
 
-//     useEffect(() => {
+    // useEffect(() => {
     
-//         fetch('http://localhost:3000/lessons', {
-//             headers: {
-//             "Authorization": `Bearer ${localStorage.token}`
-//             }
-//         })
-//         .then(r => r.json())
-//         .then(lessonsArr => {
-//             setLessons(lessonsArr)
-//         })            
+    //     fetch('http://localhost:3000/lessons', {
+    //         headers: {
+    //         "Authorization": `Bearer ${localStorage.token}`
+    //         }
+    //     })
+    //     .then(r => r.json())
+    //     .then(lessonsArr => {
+    //         console.log(lessonsArr)
+    //         handleLessons(lessonsArr)
+    //     })            
     
 
-//     }, [])
+    // }, [])
 
     const renderLessons = 
         lessons.map((lesson, idx) => 
