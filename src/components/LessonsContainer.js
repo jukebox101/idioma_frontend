@@ -1,30 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import {NavLink} from 'react-router-dom';
 
 
 function LessonsContainer (props) {
-    const {handleLessons, lessons} = props
-// const [lessons, setLessons] = useState([])
+    const { lessons, handleLessonId } = props
 
-    // useEffect(() => {
-    
-    //     fetch('http://localhost:3000/lessons', {
-    //         headers: {
-    //         "Authorization": `Bearer ${localStorage.token}`
-    //         }
-    //     })
-    //     .then(r => r.json())
-    //     .then(lessonsArr => {
-    //         console.log(lessonsArr)
-    //         handleLessons(lessonsArr)
-    //     })            
-    
-
-    // }, [])
 
     const renderLessons = 
         lessons.map((lesson, idx) => 
@@ -32,16 +17,21 @@ function LessonsContainer (props) {
             <br/>
             <Row>
             <Col md={{ span: 6, offset: 3 }}>
+                
             <Card style={{ width: '40rem' }}>
                 <Card.Body>
-                        <Card.Title>{lesson.title}</Card.Title>
+                        <Card.Title style={{color:'orangered'}}>{lesson.title}</Card.Title>
     
                         <Card.Text>
-                        {lesson.description}
+                            {lesson.description}
                         </Card.Text>
-
-                        <NavLink to="/introlesson" exact>Start Lesson</NavLink>{' '}
-                        <NavLink to="/introexercises" exact>Start Exercises</NavLink>
+                        <Button variant="outline-dark" onClick={() => handleLessonId(lesson.id)}>
+                            <NavLink style={{color:'green'}} to={lesson.nav_link} exact>Start Lesson</NavLink>
+                        </Button>{' '}
+                        <Button variant="outline-dark" onClick={() => handleLessonId(lesson.id)}>
+                            <NavLink style={{color:'green'}} to="/introexercises" exact>Start Exercises</NavLink>
+                        </Button>{' '}
+                        
 
                     </Card.Body>
                     </Card>

@@ -55,7 +55,7 @@ function ExerciseCard (props) {
                         <div key={idx} className="mb-3">
                             <Button 
                             key={idx} 
-                            variant='primary' 
+                            variant="outline-dark" 
                             size="lg" 
                             disabled={disabled}
                             block value={answer} 

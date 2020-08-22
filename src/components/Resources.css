@@ -1,0 +1,19 @@
+        /* The heart of the matter */ 
+          
+        .horizontal-scrollable > .row { 
+            overflow-x: auto; 
+            white-space: nowrap; 
+        } 
+          
+        .horizontal-scrollable > .row > .col { 
+            display: inline-block; 
+            float: none; 
+        }
+        body {
+            background: dimgray !important;
+          
+          }
+
+        .card {
+            background: cornsilk !important;
+        }

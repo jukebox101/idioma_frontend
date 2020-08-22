@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,8 +6,7 @@ import Col from 'react-bootstrap/Col';
 import CompletedExercises from './CompletedExercises';
 
 function UserAccount (props) {
-    let {currentUser, handleCompletedExercises, lessons, exercises, completedExercises} = props
-    const [completedLessons, setCompletedLessons] = useState([])
+    let {currentUser, handleCompletedExercises, lessons, completedExercises} = props
 
     useEffect(() => {
         fetch('http://localhost:3000/user_completed', {
@@ -50,9 +49,9 @@ function UserAccount (props) {
                 <Row>
                     <Col sm={4}>
                     <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" />
+                        <Card.Img variant="bottom" src="https://www.uokpl.rs/fpng/f/276-2761720_circle-hd-png.png" />
                         <Card.Body>
-                            <Card.Title>{currentUser.username}</Card.Title>
+                            <Card.Title style={{color:'green'}}>{currentUser.username}</Card.Title>
                             <Card.Text>
                                 Lessons Completed: {array.length}
                             </Card.Text>                            
@@ -66,7 +65,6 @@ function UserAccount (props) {
                         </Card>
                     </Col>
                     <Col sm={8}>
-                        <h2>Completed Lessons</h2>
                         {completedExercises ? renderCompleted : <p>You have not completed any lessons.</p>}
                     </Col>
                 </Row>                

@@ -5,9 +5,11 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import LessonsContainer from './components/LessonsContainer';
 import UserAccount from './components/UserAccount';
-import Lesson from './components/Lesson';
+import Lesson from './components/Lessons/Lesson';
+import PhrasesLesson from './components/Lessons/PhrasesLesson';
 import Exercises from './components/Exercises';
 import Home from './components/Home';
+import Resources from './components/Resources';
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
   const [exercises, setExercises] = useState([]);
   const [completedExercises, setCompletedExercises] = useState([]);
   const [lessons, setLessons] = useState([])
+  const [lessonId, setLessonId] = useState(null)
 
   const handleLogin = (newUser) => {
     setCurrentUser(newUser)
@@ -27,6 +30,10 @@ function App() {
 
   const handleLessons = (lessonsData) => {
     setLessons(lessonsData)
+  }
+  const handleLessonId = (id) => {
+        setLessonId(id)
+        console.log("lesson id: ", lessonId)
   }
 
   const handleExercises = (exercisesData) => {
@@ -76,7 +83,7 @@ console.log(lessons)
                 
           <Switch>
             <Route exact path='/signup'>
-              <SignUp handleLogin={handleLogin} />
+              {currentUser === null ? <SignUp handleLogin={handleLogin} /> : <Redirect to='/'/>}
             </Route>
             <Route exact path='/login'>
               {currentUser === null ? <Login handleLogin={handleLogin} /> : <Redirect to='/'/>}
@@ -89,17 +96,23 @@ console.log(lessons)
                 }
             </Route>
             <Route exact path='/lessons'>
-              <LessonsContainer handleLessons={handleLessons} lessons={lessons} />
+              <LessonsContainer handleLessons={handleLessons} lessons={lessons} handleLessonId={handleLessonId} />
+            </Route>
+            <Route exact path="/phraseslesson" handleLessonId={handleLessonId} >
+              <PhrasesLesson />
+            </Route>
+            <Route exact path='/introlesson'>
+              <Lesson handleLessonId={handleLessonId} />
+            </Route>
+            <Route exact path='/introexercises'>
+              <Exercises exercises={exercises} lessonId={lessonId} handleExercises={handleExercises} handleCompletedExercises={handleCompletedExercises} completedExercises={completedExercises} />
+            </Route>
+            <Route exact path='/resources'>
+              <Resources/>
             </Route>
             <Route exact path="/">
               <Home/>
-            </Route>
-            <Route exact path='/introlesson'>
-              <Lesson />
-            </Route>
-            <Route exact path='/introexercises'>
-              <Exercises exercises={exercises} handleExercises={handleExercises} handleCompletedExercises={handleCompletedExercises} completedExercises={completedExercises} />
-            </Route>
+            </Route>            
           </Switch>        
       </div>
   );

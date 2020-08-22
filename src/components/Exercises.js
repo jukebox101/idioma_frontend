@@ -8,7 +8,7 @@ import {NavLink} from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 function Exercises (props) {
-    let {handleCompletedExercises, handleExercises, exercises, completedExercises} = props
+    let {handleCompletedExercises, handleExercises, lessonId, exercises, completedExercises} = props
     // const [exercises, setExercises] = useState([])
     const [counter, setCounter] = useState(0)
     const [buttonName, setButtonName] = useState('Next')
@@ -29,11 +29,12 @@ function Exercises (props) {
         })
     }, [])
 
-console.log(completedExercises)
-    if (correctAnswersArr.length === exercises.length) {
+    const lessonExercises = exercises.filter(exercise => exercise.lesson_id === lessonId)
+    console.log("exercises: ",lessonExercises)
 
-        exercises.map((exercise) => {
-
+    //posts completed exercises
+    if (correctAnswersArr.length === lessonExercises.length) {
+        lessonExercises.map((exercise) => {
             const data = {exercise_id: exercise.id, lesson_id: exercise.lesson_id}
             fetch("http://localhost:3000/completed_exercises", {
                 method: "POST",
@@ -49,9 +50,9 @@ console.log(completedExercises)
             })    
          }   
         )
-
     }
-    console.log(exercises.length)
+
+    console.log("exercise array length: ",lessonExercises.length)
     const handleCorrect = (answer, correctAnswer) => {
         if(answer === correctAnswer){
             setCorrectAnswersArr(correctAnswersArr => [...correctAnswersArr, answer])
@@ -67,7 +68,7 @@ console.log(completedExercises)
     }
 
     const renderQuestions =
-        exercises.map((question, idx)=> 
+        lessonExercises.map((question, idx)=> 
             <ExerciseCard
             key={idx}
             questions={question.questions}
@@ -109,11 +110,11 @@ console.log(completedExercises)
                 <Col xs={6} md={4}>
             {renderQuestions[counter]}
             {
-            <Button onClick={() => {
+            <Button style={{color:'cornsilk'}} variant="outline-dark" onClick={() => {
                 setCounter(counter+1);
                 {buttonChange()};
                 {setShow(false)};
-                }}>{buttonName === "Complete" ? <NavLink to="/lessons" exact>Complete</NavLink> : buttonName}
+                }}>{buttonName === "Complete" ? <NavLink style={{color:'cornsilk'}} to="/lessons" exact>Complete</NavLink> : buttonName}
                 </Button>                
             }
 

@@ -4,7 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function Lesson () {
+import {NavLink} from 'react-router-dom';
+
+function Lesson (props) {
+    const {handleLessonId} = props
 
     return(
         <Container fluid >
@@ -61,7 +64,9 @@ function Lesson () {
                                 you would say "el pan". Although the bread isn't a male, it's still considered masucline
                                 and uses an "el".
                                 </Card.Text>
-                                <Card.Link href="/introexercises">Start Exercises</Card.Link>
+                                {/* <Button variant="outline-secondary" onClick={() => handleLessonId(12)}>
+                                <NavLink to="/introexercises" exact>Start Exercises</NavLink> 
+                                </Button> */}
                         </Card.Body>
                         </Card>
                 </Col>

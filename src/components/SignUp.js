@@ -34,7 +34,7 @@ function SignUp (props){
         <Row>
             <Col md={{ span: 6, offset: 3 }}>
         <Form onSubmit={handleSubmit}>
-            <h1>Sign Up</h1>
+            <h1 style={{color:'orangered'}}>Sign Up</h1>
 
         <Form.Group>
             <Form.Label>Username</Form.Label>
@@ -54,7 +54,7 @@ function SignUp (props){
             onChange={e => setPassword(e.target.value)} />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button style={{color:'orangered'}} variant="outline-dark" type="submit">
             Submit
         </Button>
         </Form>
