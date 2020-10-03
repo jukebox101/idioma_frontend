@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
