@@ -8,7 +8,7 @@ import {NavLink} from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 
 function Exercises (props) {
-    let {handleCompletedExercises, handleExercises, lessonId, exercises, completedExercises} = props
+    let {handleCompletedExercises, handleExercises, lessonId, exercises} = props
     // const [exercises, setExercises] = useState([])
     const [counter, setCounter] = useState(0)
     const [buttonName, setButtonName] = useState('Next')

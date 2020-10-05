@@ -4,11 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import {NavLink} from 'react-router-dom';
 
 function PhrasesLesson (props) {
-    const {handleLessonId} = props
+
     return(
         <Container fluid >
             <Container>
