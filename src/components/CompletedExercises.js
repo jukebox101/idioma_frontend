@@ -6,6 +6,7 @@ function CompletedExercises (props) {
     const {title, description} = props
 
     return (
+        <div>
         <Card style={{ width: '40rem' }}>
         <Card.Body>
                 <Card.Title style={{color:'green'}}>{title}</Card.Title>
@@ -18,7 +19,10 @@ function CompletedExercises (props) {
                 <NavLink style={{color:'orangered'}} to="/introexercises" exact>Practice Exercises</NavLink>
 
             </Card.Body>
-            </Card>
+        </Card>
+        <br/>            
+        </div>
+
     )
 }
 export default CompletedExercises;
