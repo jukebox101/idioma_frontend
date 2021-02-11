@@ -17,8 +17,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [exercises, setExercises] = useState([]);
   const [completedExercises, setCompletedExercises] = useState([]);
-  const [lessons, setLessons] = useState([])
-  const [lessonId, setLessonId] = useState(null)
+  const [lessons, setLessons] = useState([]);
+  const [lessonId, setLessonId] = useState(null);
 
   const handleLogin = (newUser) => {
     setCurrentUser(newUser)
