@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 function SignUp (props){
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState([])
 
     
     const handleSubmit = (e) => {
@@ -24,8 +25,14 @@ function SignUp (props){
         .then(r => r.json())
         .then(data => {
             const { user, token } = data
-            props.handleLogin(user)
-            localStorage.token = token
+            if(user && token) {
+                props.handleLogin(user)
+                localStorage.token = token                
+            } else {
+                console.log(data.error)
+                setErrorMessage(data.error)
+            }
+
         })
     }
 
@@ -53,7 +60,8 @@ function SignUp (props){
             value={password} 
             onChange={e => setPassword(e.target.value)} />
         </Form.Group>
-
+        {errorMessage.map((error) => <p style={{color:'red'}}>{error}</p>
+        )}
         <Button style={{color:'orangered'}} variant="outline-dark" type="submit">
             Submit
         </Button>
