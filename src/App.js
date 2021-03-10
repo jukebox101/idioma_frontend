@@ -4,11 +4,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import LessonsContainer from './components/LessonsContainer';
+import LessonsContainer from './components/lessons/LessonsContainer';
 import UserAccount from './components/UserAccount';
-import Lesson from './components/Lessons/Lesson';
-import PhrasesLesson from './components/Lessons/PhrasesLesson';
-import Exercises from './components/Exercises';
+import Lesson from './components/lessons/Lesson';
+import PhrasesLesson from './components/lessons/PhrasesLesson';
+import Exercises from './components/exercises/Exercises';
 import Home from './components/Home';
 import Resources from './components/Resources';
 
@@ -27,14 +27,16 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token")
     setCurrentUser(null)
+
   }
 
   const handleLessons = (lessonsData) => {
     setLessons(lessonsData)
   }
+
   const handleLessonId = (id) => {
-        setLessonId(id)
-        console.log("lesson id: ", lessonId)
+    setLessonId(id)
+    console.log("lesson id: ", lessonId)
   }
 
   const handleExercises = (exercisesData) => {
@@ -45,6 +47,23 @@ function App() {
     setCompletedExercises(completedExercisesData)
   }
 
+  useEffect(() => {
+    if (localStorage.token) {
+      fetch('http://localhost:3000/lessons', {
+          headers: {
+          "Authorization": `Bearer ${localStorage.token}`
+          }
+      })
+      .then(r => r.json())
+      .then(lessonsArr => {
+          handleLessons(lessonsArr)
+      })       
+    }
+           
+
+
+  }, [])
+  
   useEffect(() => {
     
     if(localStorage.token) {
@@ -63,20 +82,7 @@ function App() {
 
   }, [])
 
-  useEffect(() => {
-    
-    fetch('http://localhost:3000/lessons', {
-        headers: {
-        "Authorization": `Bearer ${localStorage.token}`
-        }
-    })
-    .then(r => r.json())
-    .then(lessonsArr => {
-        handleLessons(lessonsArr)
-    })            
 
-
-  }, [])
 console.log(lessons)
   return (
 

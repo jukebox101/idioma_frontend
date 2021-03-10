@@ -28,7 +28,6 @@ function Login (props) {
             localStorage.token = token                
             }
             else {
-                console.log(data.error)
                 setErrorMessage(data.error)
             }
 

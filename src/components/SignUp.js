@@ -29,7 +29,6 @@ function SignUp (props){
                 props.handleLogin(user)
                 localStorage.token = token                
             } else {
-                console.log(data.error)
                 setErrorMessage(data.error)
             }
 

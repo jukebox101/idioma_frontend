@@ -1,8 +1,8 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React from './node_modules/react';
+import Card from './node_modules/react-bootstrap/Card'
+import Container from './node_modules/react-bootstrap/Container';
+import Row from './node_modules/react-bootstrap/Row';
+import Col from './node_modules/react-bootstrap/Col';
 
 
 function Lesson (props) {
